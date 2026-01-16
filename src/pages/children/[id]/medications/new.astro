@@ -1,0 +1,12 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import MedicationForm from '@/components/MedicationForm';
+
+
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <MedicationForm client:only="react" childId={id} />
+</Layout>

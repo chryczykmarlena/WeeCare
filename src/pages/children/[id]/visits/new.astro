@@ -1,0 +1,12 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import VisitForm from '@/components/VisitForm';
+
+
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <VisitForm client:only="react" childId={id} />
+</Layout>

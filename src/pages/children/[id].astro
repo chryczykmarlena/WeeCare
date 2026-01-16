@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ChildDashboard from '@/components/ChildDashboard';
+
+
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <ChildDashboard client:only="react" childId={id} />
+</Layout>
