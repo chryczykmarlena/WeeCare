@@ -57,7 +57,9 @@ export default function HomePage() {
                 Logged in as: {user.email}
             </p>
             <div className="space-x-4">
-                <Button>Get Started</Button>
+                <Button onClick={() => window.location.href = '/children'}>
+                    Manage Children
+                </Button>
                 <Button variant="outline" onClick={handleSignOut}>
                     Sign Out
                 </Button>
