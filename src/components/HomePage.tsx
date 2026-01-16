@@ -56,11 +56,14 @@ export default function HomePage() {
             <p className="text-sm text-muted-foreground mb-8">
                 Logged in as: {user.email}
             </p>
-            <div className="space-x-4">
-                <Button onClick={() => window.location.href = '/children'}>
+            <div className="flex flex-col gap-3 w-full max-w-xs">
+                <Button className="w-full" size="lg" onClick={() => window.location.href = '/children'}>
                     Manage Children
                 </Button>
-                <Button variant="outline" onClick={handleSignOut}>
+                <Button className="w-full" variant="secondary" size="lg" onClick={() => window.location.href = '/doctors'}>
+                    Doctors & Contacts
+                </Button>
+                <Button className="w-full" variant="outline" size="lg" onClick={handleSignOut}>
                     Sign Out
                 </Button>
             </div>

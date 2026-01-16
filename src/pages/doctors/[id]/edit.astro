@@ -1,0 +1,10 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import DoctorForm from '@/components/DoctorForm';
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <DoctorForm client:only="react" doctorId={id} />
+</Layout>
