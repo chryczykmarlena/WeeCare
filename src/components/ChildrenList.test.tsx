@@ -22,7 +22,7 @@ describe('ChildrenList Component', () => {
     });
 
     it('renders loading state initially', async () => {
-        (supabase.auth.getSession as any).mockResolvedValue({ data: { session: null } });
+        vi.mocked(supabase.auth.getSession).mockResolvedValue({ data: { session: null }, error: null });
 
         render(<ChildrenList />);
         await waitFor(() => {
@@ -31,11 +31,15 @@ describe('ChildrenList Component', () => {
     });
 
     it('shows empty state when user is logged in but has no children', async () => {
-        (supabase.auth.getSession as any).mockResolvedValue({
-            data: { session: { user: { id: 'user-1' } } }
+        vi.mocked(supabase.auth.getSession).mockResolvedValue({
+            data: { session: { user: { id: 'user-1' } } as any },
+            error: null
         });
 
-        (supabase.from as any)().order.mockResolvedValue({ data: [], error: null });
+        vi.mocked(supabase.from).mockReturnValue({
+            select: vi.fn().mockReturnThis(),
+            order: vi.fn().mockResolvedValue({ data: [], error: null })
+        } as any);
 
         render(<ChildrenList />);
 
@@ -45,15 +49,19 @@ describe('ChildrenList Component', () => {
     });
 
     it('renders children cards when data is returned', async () => {
-        (supabase.auth.getSession as any).mockResolvedValue({
-            data: { session: { user: { id: 'user-1' } } }
+        vi.mocked(supabase.auth.getSession).mockResolvedValue({
+            data: { session: { user: { id: 'user-1' } } as any },
+            error: null
         });
 
         const mockChildren = [
             { id: '1', name: 'Child One', dob: '2020-01-01', allergies: ['Milk'] },
         ];
 
-        (supabase.from as any)().order.mockResolvedValue({ data: mockChildren, error: null });
+        vi.mocked(supabase.from).mockReturnValue({
+            select: vi.fn().mockReturnThis(),
+            order: vi.fn().mockResolvedValue({ data: mockChildren, error: null })
+        } as any);
 
         render(<ChildrenList />);
 

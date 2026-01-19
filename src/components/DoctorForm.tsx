@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,14 +22,7 @@ export default function DoctorForm({ doctorId }: DoctorFormProps) {
     const [loading, setLoading] = useState(false);
     const [initialLoading, setInitialLoading] = useState(!!doctorId);
 
-    useEffect(() => {
-        setMounted(true);
-        if (doctorId) {
-            fetchDoctor();
-        }
-    }, [doctorId]);
-
-    const fetchDoctor = async () => {
+    const fetchDoctor = useCallback(async () => {
         const { data, error } = await supabase
             .from('doctors')
             .select('*')
@@ -48,7 +41,14 @@ export default function DoctorForm({ doctorId }: DoctorFormProps) {
             setNotes(data.notes || '');
         }
         setInitialLoading(false);
-    };
+    }, [doctorId]);
+
+    useEffect(() => {
+        setMounted(true);
+        if (doctorId) {
+            fetchDoctor();
+        }
+    }, [doctorId, fetchDoctor]);
 
     if (!mounted || initialLoading) {
         return <div className="flex justify-center p-8">Loading...</div>;

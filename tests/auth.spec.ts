@@ -43,7 +43,7 @@ test.describe('Authentication', () => {
         try {
             await expect(page).toHaveURL('/', { timeout: 5000 });
             console.log('Login successful for', TEST_EMAIL);
-        } catch (e) {
+        } catch {
             console.log('Login failed for', TEST_EMAIL, '- attempting registration');
             await page.goto('/register');
             await page.fill('#email', TEST_EMAIL);

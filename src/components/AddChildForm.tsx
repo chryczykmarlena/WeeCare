@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -92,7 +92,7 @@ export default function AddChildForm() {
             <Card>
                 <CardHeader>
                     <CardTitle>Add Child Profile</CardTitle>
-                    <CardDescription>Enter your child's information</CardDescription>
+                    <CardDescription>Enter your child&apos;s information</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">

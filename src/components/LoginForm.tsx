@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,7 +67,7 @@ export default function LoginForm() {
                             {loading ? 'Signing in...' : 'Sign In'}
                         </Button>
                         <p className="text-sm text-center text-muted-foreground">
-                            Don't have an account?{' '}
+                            Don&apos;t have an account?{' '}
                             <a href="/register" className="text-primary hover:underline">
                                 Sign up
                             </a>

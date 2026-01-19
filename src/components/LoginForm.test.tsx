@@ -27,8 +27,9 @@ describe('LoginForm Component', () => {
 
     it('shows error message on failed login', async () => {
         const errorMessage = 'Invalid login credentials';
-        (supabase.auth.signInWithPassword as any).mockResolvedValue({
-            error: { message: errorMessage }
+        vi.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
+            data: { user: null, session: null },
+            error: { message: errorMessage } as any
         });
 
         render(<LoginForm />);

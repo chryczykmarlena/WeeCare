@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { User } from '@supabase/supabase-js';
 
 interface Child {
     id: string;
@@ -32,24 +31,12 @@ interface Medication {
 }
 
 export default function ChildDashboard({ childId }: { childId: string }) {
-    const [user, setUser] = useState<User | null>(null);
     const [child, setChild] = useState<Child | null>(null);
     const [visits, setVisits] = useState<Visit[]>([]);
     const [medications, setMedications] = useState<Medication[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null);
-            if (!session) {
-                window.location.href = '/login';
-                return;
-            }
-            fetchChildData();
-        });
-    }, [childId]);
-
-    const fetchChildData = async () => {
+    const fetchChildData = useCallback(async () => {
         if (!childId) return;
 
         // Fetch child profile
@@ -84,7 +71,17 @@ export default function ChildDashboard({ childId }: { childId: string }) {
         setMedications(medsData || []);
 
         setLoading(false);
-    };
+    }, [childId]);
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (!session) {
+                window.location.href = '/login';
+                return;
+            }
+            fetchChildData();
+        });
+    }, [childId, fetchChildData]);
 
     const calculateAge = (dob: string) => {
         const birthDate = new Date(dob);

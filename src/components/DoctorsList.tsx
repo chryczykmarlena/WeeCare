@@ -14,7 +14,6 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Phone, Mail, MapPin, Edit, Trash2 } from 'lucide-react';
-import type { User } from '@supabase/supabase-js';
 
 interface Doctor {
     id: string;

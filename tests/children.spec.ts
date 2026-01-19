@@ -15,7 +15,7 @@ test.describe('Child Management', () => {
         try {
             await expect(page).toHaveURL('/', { timeout: 5000 });
             console.log('Login successful in children.spec for', TEST_EMAIL);
-        } catch (e) {
+        } catch {
             console.log('Login failed in children.spec for', TEST_EMAIL, '- attempting registration');
             await page.goto('/register');
             await page.fill('#email', TEST_EMAIL);

@@ -28,10 +28,7 @@ describe('calculateAge', () => {
 
     it('calculates age correctly for leap years', () => {
         // Assuming today is not a leap year or handling it generally
-        const dob = '2020-02-29';
-        const today = new Date('2024-02-28');
-        // If we use the current date in the actual function, we'd need to mock Date.
-        // For now, let's just test basic logic if we can.
         // Since calculateAge uses new Date() internally, it's hard to test specific "today" without mocking.
+        // This test is a placeholder for future implementation with date mocking
     });
 });

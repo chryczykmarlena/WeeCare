@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { calculateAge, cn } from '@/lib/utils';
+import { calculateAge } from '@/lib/utils';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -15,7 +15,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import type { User } from '@supabase/supabase-js';
 
 interface Child {
     id: string;
@@ -26,7 +25,6 @@ interface Child {
 
 export default function ChildrenList() {
     const [mounted, setMounted] = useState(false);
-    const [user, setUser] = useState<User | null>(null);
     const [children, setChildren] = useState<Child[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -37,8 +35,6 @@ export default function ChildrenList() {
     useEffect(() => {
         // Check auth and fetch children
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null);
-
             if (!session) {
                 window.location.href = '/login';
                 return;
@@ -92,7 +88,7 @@ export default function ChildrenList() {
             <div className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-3xl font-bold">Children</h1>
-                    <p className="text-muted-foreground">Manage your children's profiles</p>
+                    <p className="text-muted-foreground">Manage your children&apos;s profiles</p>
                 </div>
                 <Button onClick={() => window.location.href = '/children/new'}>
                     Add Child
