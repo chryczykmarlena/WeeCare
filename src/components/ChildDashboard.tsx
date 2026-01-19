@@ -61,6 +61,8 @@ export default function ChildDashboard({ childId }: { childId: string }) {
 
         if (childError) {
             console.error('Error fetching child:', childError);
+            setChild(null);
+            setLoading(false);
             return;
         }
         setChild(childData);
