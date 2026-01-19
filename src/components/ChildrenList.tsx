@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { calculateAge, cn } from '@/lib/utils';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -77,18 +78,6 @@ export default function ChildrenList() {
         }
     };
 
-    const calculateAge = (dob: string) => {
-        const birthDate = new Date(dob);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-
-        return age;
-    };
 
     if (!mounted || loading) {
         return (
