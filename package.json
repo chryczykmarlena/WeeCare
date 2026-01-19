@@ -26,6 +26,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.0.17",
     "astro": "^5.16.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
