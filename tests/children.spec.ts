@@ -1,10 +1,14 @@
 import { test, expect } from '@playwright/test';
+import { SupabaseMock } from './mocks/supabase';
 
 const TEST_EMAIL = 'test-user@example.com';
 const TEST_PASSWORD = 'Password123!';
 
 test.describe('Child Management', () => {
     test.beforeEach(async ({ page }) => {
+        const supabaseMock = new SupabaseMock();
+        await supabaseMock.setup(page);
+
         // Log in before each test in this describe block
         await page.goto('/login');
         await page.fill('#email', TEST_EMAIL);

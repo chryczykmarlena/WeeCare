@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { SupabaseMock } from './mocks/supabase';
 
 const USER_A_EMAIL = `user-a-${Date.now()}@example.com`;
 const USER_B_EMAIL = `user-b-${Date.now()}@example.com`;
@@ -7,10 +8,16 @@ const TEST_PASSWORD = 'Password123!';
 test.describe('Security & Isolation', () => {
     test.describe.configure({ mode: 'serial' });
     let userAChildId: string;
+    const supabaseMock = new SupabaseMock();
+
+    test.beforeEach(async ({ page }) => {
+        await supabaseMock.setup(page);
+    });
 
     test.beforeAll(async ({ browser }) => {
         // Setup: Create User A and a child profile
         const page = await browser.newPage();
+        await supabaseMock.setup(page);
 
         // Register User A
         await page.goto('/register');

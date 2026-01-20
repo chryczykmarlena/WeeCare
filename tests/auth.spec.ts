@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test';
+import { SupabaseMock } from './mocks/supabase';
 
 const TEST_EMAIL = 'test-user@example.com';
 const TEST_PASSWORD = 'Password123!';
 
 test.describe('Authentication', () => {
+    test.beforeEach(async ({ page }) => {
+        const supabaseMock = new SupabaseMock();
+        await supabaseMock.setup(page);
+    });
     test('should allow a user to navigate to register page from login', async ({ page }) => {
         await page.goto('/login');
         await page.click('text=Sign up');
